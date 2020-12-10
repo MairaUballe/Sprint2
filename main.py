@@ -13,7 +13,7 @@ async def root():
 async def usuario():
     return {"message": database_usuarios}
 
-@api.get("/usuarios/{usuarioid}")           # GET /users HTTP/1.1 (lado del cliente) 
+@api.get("/usuariosbusq/{usuarioid}")           # GET /users HTTP/1.1 (lado del cliente) 
 async def get_usuario_by_usuarioid(usuario : int):
     if usuario in database_usuarios:
         return {"message": database_usuarios[usuario]}
@@ -23,13 +23,17 @@ async def get_usuario_by_usuarioid(usuario : int):
 async def create_usaurio(usuario : UsuarioInDB):
     database_usuarios[usuario.usuarioid] = usuario
     return usuario
+    
 
-@api.delete("/usuarios/delete")
-async def delete_usuario(usuario : UsuarioInDB):
-    del database_usuarios[usuario.usuarioid]
-    return usuario
+@api.delete("/usuarios/delete/")
+async def delete_usuario(usuario : int):
+    if usuario in database_usuarios:
+        del database_usuarios[usuario]
+    return "El usuario " + str(usuario) + " ha sido eliminado satifactoriamente"
+    raise HTTPException(status_code=404, detail="¡El usuario no existe!")
+
 
 @api.put("/usuario/update")
 async def update_usuario(usuario : UsuarioInDB):
-    database_usuario[usuario.usuarioid] = usuario
+    database_usuarios[usuario.usuarioid] = usuario
     return usuario

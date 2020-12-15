@@ -1,0 +1,4 @@
+# archivo requirements.txt
+fastapi==0.62.0                 # Framework web
+uvicorn==0.12.2                 # Servidor
+pydantic==1.7.3

@@ -1,4 +1,4 @@
-from datetime import datetime
+
 from typing import Dict
 from pydantic import BaseModel
 
@@ -14,7 +14,6 @@ class UsuarioInDB(BaseModel):
     admin: int
     correo: str
 
-
 database_usuarios = []
 generator = {"id":0}
 def save_usuario(usuario_in_db: UsuarioInDB):
@@ -23,10 +22,10 @@ def save_usuario(usuario_in_db: UsuarioInDB):
     database_usuarios.append(usuario_in_db)
     return usuario_in_db
 
-database_users = Dict[str, UsuarioInDB]
+database_usuarios = Dict[str, UsuarioInDB]
 
 database_usuarios = {
-    1001: UsuarioInDB(**{"usuarioid":"1001",
+    1001: UsuarioInDB(**{   "usuarioid":"1001",
                             "contraseña":"1234",
                             "username": "Maria_Rios",
                             "nombre":"María",
@@ -58,13 +57,8 @@ database_usuarios = {
                             "correo": "marthafer@gmail.com"}),
 }
 
-def get_usuario(usuarioid: int):
-    if usuarioid in database_usuarios.keys():
-        return database_users[usuarioid]
-    else:
+def get_usuarioid(usaurioid: str):
+    if usaurioid in database_usuarios.keys():
+        return database_usuarios[usaurioid]
+    else: 
         return None
-
-def update_usuario(usuario_in_db: UsuarioInDB):
-    database_users[usuario_in_db.usuarioid] = usuario_in_db
-    return usuario_in_db
-

@@ -1,4 +1,21 @@
-from datetime import datetime
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, BigInteger, Boolean, Float
+from db.db_connection import Base, engine
+from xmlrpc.client import boolean
+
+class HabitacionesInDB(Base):
+
+    __tablename__ = "habitaciones"
+
+    habitacionid = Column(BigInteger, primary_key=True)
+    habitacionnum = Column(String)
+    tipo = Column(String)
+    disponible = Column(Boolean)
+    precio = Column(Float)
+    personas = Column(Integer)
+
+
+
+""" from datetime import datetime
 from pydantic import BaseModel
 from typing import Dict
 
@@ -49,4 +66,4 @@ def get_habitacionid(habitacionid: int):
         return None
 
 
- 
+  """

@@ -1,18 +1,54 @@
-
-from typing import Dict
+from sqlalchemy import Column, Integer, String, Boolean
+from db.db_connection import Base, engine
 from pydantic import BaseModel
 
-class UsuarioInDB(BaseModel):
+class UsuarioInDB(Base):
+    __tablename__ = "usuarios"
+    username = Column(String, primary_key=True)
+    contraseña = Column(String)
+    nombre = Column(String)
+    apellido = Column(String)
+    fecha_nacimiento = Column(String)
+    telefono = Column(String)
+    identificacion = Column(String)
+    tipo_identificacion = Column(String)
+    admin = Column(Boolean)
+    correo = Column(String)
+
+Base.metadata.create_all(bind=engine)
+
+class Usuario(BaseModel):
     usuarioid: int = 0
     username: str
     contraseña: str
     nombre: str
     apellido: str
-    telefono: int
-    identificacion: int
+    fecha_nacimiento = str
+    telefono: str
+    identificacion: str
     tipo_identificacion: str
-    admin: int
+    admin: bool
     correo: str
+
+def __init__(self, usuarioid, username, contraseña, nombre, apellido, telefono, identificacion, tipo_identificacion, admin, correo):
+        super().__init__()
+        self.usuarioid = usuarioid
+        self.username = username
+        self.contraseña = contraseña
+        self.nombre = nombre
+        self.apellido = apellido
+        self.telefono = telefono
+        self.identificacion = identificacion 
+        self.tipo_identificacion = tipo_identificacion
+        self.admin = admin
+        self.correo = correo
+
+       
+
+""" 
+from typing import Dict
+from pydantic import BaseModel
+
 
 database_usuarios = []
 generator = {"id":0}
@@ -34,7 +70,8 @@ database_usuarios = {
                             "identificacion": "1077245708",
                             "tipo_identificacion": "cedula",
                             "admin": 1,
-                            "correo": "mariarios@gmail.com"}),
+                            "correo": "mariarios@gmail.com"
+                            "contraseña": "abcd"}),
     1002: UsuarioInDB(**{"usuarioid":"1002",
                             "username": "CarlosGo",
                             "contraseña":"abcd",
@@ -62,3 +99,4 @@ def get_usuarioid(usaurioid: str):
         return database_usuarios[usaurioid]
     else: 
         return None
+ """

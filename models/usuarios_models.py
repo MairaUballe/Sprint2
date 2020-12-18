@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class UsuarioIn(BaseModel):
-    usuarioid: int
+    username: str
     contraseña: str
 
 class UsuarioOut(BaseModel):
@@ -11,4 +11,7 @@ class UsuarioOut(BaseModel):
     date: datetime
     precio: int
     pagoid: int
+
+    class Config:
+        orm_mode = True
     

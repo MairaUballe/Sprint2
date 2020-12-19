@@ -14,7 +14,7 @@ async def auth_user(usuario_in: UsuarioIn, db: Session = Depends(get_db)):
     if usuario_in_db == None:
         raise HTTPException(status_code=404,
     detail="El usuario no existe")
-    if usuario_in_db.contraseña != usuario_in.contraseña:
+    if usuario_in_db.contrasena != usuario_in.contrasena:
         raise HTTPException(status_code=403,
     detail="Error de autenticacion")
     return {"Autenticado": True}
@@ -29,7 +29,7 @@ async def create_usaurio(usuario: Usuario):
 
     username_in_db = session.query(UsuarioInDB).get(usuario.username)
     if username_in_db == None:
-        new_usuario = UsuarioInDB(usuarioid = usuario.usuarioid, username = usuario.username, contraseña = usuario.contraseña, nombre = usuario.nombre, apellido = usuario.apellido, telefono = usuario.telefono, identificacion = usuario.identificacion, tipo_identificacion = usuario.tipo_identificacion, admin = usuario.admin, correo = usuario.correo)
+        new_usuario = UsuarioInDB(usuarioid = usuario.usuarioid, username = usuario.username, contrasena = usuario.contrasena, nombre = usuario.nombre, apellido = usuario.apellido, fecha_nacimiento = usuario.fecha_nacimiento, telefono = usuario.telefono, identificacion = usuario.identificacion, tipo_identificacion = usuario.tipo_identificacion, admin = usuario.admin, correo = usuario.correo)
         session.add(new_usuario)
         session.commit()
         return "El usuario " + usuario.username + " ha sido creado sactifactoriamente" 
@@ -50,8 +50,8 @@ async def delete_usuario(username: str):
 async def update_usuario(usuario : Usuario):
     usuario_in_db = session.query(UsuarioInDB).get(usuario.username)
 
-    stmt = (update(UsuarioInDB).where(UsuarioInDB.username == usuario.username).values(contraseña = usuario.contraseña, nombre = usuario.nombre, apellido = usuario.apellido, telefono = usuario.telefono, identificacion = usuario.identificacion, tipo_identificacion = usuario.tipo_identificacion, admin = usuario.admin, correo = usuario.correo))
-    
+    stmt = (update(UsuarioInDB).where(UsuarioInDB.username == usuario.username).values(contrasena = usuario.contrasena, nombre = usuario.nombre, apellido = usuario.apellido, telefono = usuario.telefono, fecha_nacimiento = usuario.fecha_nacimiento, identificacion = usuario.identificacion, tipo_identificacion = usuario.tipo_identificacion, admin = usuario.admin, correo = usuario.correo))
+
     session.execute(stmt)
     session.commit()
-    return 'Actualización exitosa'
+    return '¡Actualización exitosa!'

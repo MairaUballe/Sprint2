@@ -3,7 +3,7 @@ from datetime import datetime
 
 class UsuarioIn(BaseModel):
     username: str
-    contraseña: str
+    contrasena: str
 
 class UsuarioOut(BaseModel):
     reservaid: int

@@ -4,8 +4,9 @@ from pydantic import BaseModel
 
 class UsuarioInDB(Base):
     __tablename__ = "usuarios"
+    usuarioid = Column(Integer)
     username = Column(String, primary_key=True)
-    contraseña = Column(String)
+    contrasena = Column(String)
     nombre = Column(String)
     apellido = Column(String)
     fecha_nacimiento = Column(String)
@@ -20,17 +21,17 @@ Base.metadata.create_all(bind=engine)
 class Usuario(BaseModel):
     usuarioid: int = 0
     username: str
-    contraseña: str
+    contrasena: str
     nombre: str
     apellido: str
-    fecha_nacimiento = str
+    fecha_nacimiento: str
     telefono: str
     identificacion: str
     tipo_identificacion: str
     admin: bool
     correo: str
 
-def __init__(self, usuarioid, username, contraseña, nombre, apellido, telefono, identificacion, tipo_identificacion, admin, correo):
+def __init__(self, usuarioid, username, contraseña, nombre, apellido, telefono, fecha_nacimiento, identificacion, tipo_identificacion, admin, correo):
         super().__init__()
         self.usuarioid = usuarioid
         self.username = username
@@ -38,6 +39,7 @@ def __init__(self, usuarioid, username, contraseña, nombre, apellido, telefono,
         self.nombre = nombre
         self.apellido = apellido
         self.telefono = telefono
+        self.fecha_nacimiento = fecha_nacimiento
         self.identificacion = identificacion 
         self.tipo_identificacion = tipo_identificacion
         self.admin = admin

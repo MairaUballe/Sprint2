@@ -1,31 +1,38 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, BigInteger, Boolean, Float
 from db.db_connection import Base, engine
 from xmlrpc.client import boolean
+from pydantic import BaseModel
 
 class HabitacionesInDB(Base):
-
     __tablename__ = "habitaciones"
-
     habitacionid = Column(BigInteger, primary_key=True)
-    habitacionnum = Column(String)
     tipo = Column(String)
     disponible = Column(Boolean)
     precio = Column(Float)
-    personas = Column(Integer)
+    descripcion = Column(String)
 
+Base.metadata.create_all(bind=engine)
+
+class Habitacion(BaseModel):
+  habitacionid: int = 0
+  descripcion: str
+  tipo: str
+  disponible: bool
+  precio: float
+  
+def __init__(self, habitacionid, descripcion, tipo, disponible, precio):
+        super().__init__()
+        self.habitacionid = habitacionid
+        self.descripcion = descripcion
+        self.tipo = tipo
+        self.disponible = disponible
+        self.precio = precio
 
 
 """ from datetime import datetime
 from pydantic import BaseModel
 from typing import Dict
 
-class HabitacionesInDB(BaseModel):
-  habitacionid: int = 0
-  habitacionnum: str
-  tipo: str
-  disponible: int
-  precio: float
-  personas: int
   
 
 database_habitaciones = []

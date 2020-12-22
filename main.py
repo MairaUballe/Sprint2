@@ -15,7 +15,7 @@ origins = [
     "http://localhost", "http://localhost:8080", "http://localhost:8081, https://test-sprint2.herokuapp.com/",
 ]
 api.add_middleware(
-    CORSMiddleware, allow_origins=origins,
+    CORSMiddleware, allow_origins=["*"],
     allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
 )
 
